@@ -24,6 +24,7 @@ Install joomla plugin
 You must implement hook_oembedder like this:
 
 ```php
+<?php
 /**
  * hook_oembedder implementation
  */
@@ -44,6 +45,7 @@ function hook_oembedder($module=array(),$width=0) {
   $module['oembed'] = $oembed;
   return $module;
 }
+?>
 ```
 
 ### iframe code
@@ -53,6 +55,7 @@ You Drupal code you can added script for send into Joomla height of iframe. Ifra
 This script calculate vertical size and send to iframe.parent by postMessage:
 
 ```javascript
+<script>
 var oldHeight;
 setInterval(function(event){
   var iframeHeight = document.getElementsByTagName("body")[0].clientHeight;
@@ -61,4 +64,5 @@ setInterval(function(event){
     window.parent.postMessage(JSON.stringify({height:iframeHeight,src: window.location.href}),\'*\');
   }
 },300);
+</script>
 ```
