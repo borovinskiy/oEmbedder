@@ -61,7 +61,7 @@ setInterval(function(event){
   var iframeHeight = document.getElementsByTagName("body")[0].clientHeight;
   if (oldHeight != iframeHeight) {
     oldHeight = iframeHeight;
-    window.parent.postMessage(JSON.stringify({height:iframeHeight,src: window.location.href}),\'*\');
+    window.parent.postMessage(JSON.stringify({height:iframeHeight,src: window.location.href}),'*');
   }
 },300);
 </script>
