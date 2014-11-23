@@ -31,6 +31,7 @@ You must implement hook_oembedder like this:
 function hook_oembedder($module=array(),$width=0) {
   global $base_url;
   $node = $module['node'];		// It full loaded $node object 
+  if ($node->type != "myCustomType") return $module;    // work only for owner document types
   $width = 640;		//default 
   $height = 480;	//default
   $koef = $width / $height;
