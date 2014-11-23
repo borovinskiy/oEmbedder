@@ -21,10 +21,13 @@ Install joomla plugin
 
 ### hook_oembedder
 
-You must realise hook_oembedder like this:
+You must implement hook_oembedder like this:
 
 ```php
-function hook_eombedder($module=array(),$width=0) {
+/**
+ * hook_oembedder implementation
+ */
+function hook_oembedder($module=array(),$width=0) {
   global $base_url;
   $node = $module['node'];		// It full loaded $node object 
   $width = 640;		//default 
