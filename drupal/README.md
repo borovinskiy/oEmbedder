@@ -40,7 +40,7 @@ function hook_oembedder($module=array(),$width=0) {
   }
   $oembed = array();		// this array we export to $module['oembed']
   // We can embed by iframe.
-  $oembed['html'] = '<iframe src="' . $base_url . '/YOUMODULE/' . $node->nid . '"';  // by this source your module print embed code.
+  $oembed['html'] = '<iframe src="' . $base_url . '/YOURMODULE/' . $node->nid . '"';  // by this source your module print embed code.
   $oembed['html'] .= 'marginheight=0 marginwidth=0 frameborder=no width=' . $width . ' height=' . $height . ' allowfullscreen=1 mozallowfullscreen=1 webkitallowfullscreen=1 scrolling="none"></iframe>';
   $module['oembed'] = $oembed;
   return $module;
