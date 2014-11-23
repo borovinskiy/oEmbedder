@@ -15,4 +15,6 @@ Go to Plugin settings. Enable plugin. Add same Drupal target sites url.
 
 ## Usage
 
+```
 {{ http://example.com/node/1 }}
+```
