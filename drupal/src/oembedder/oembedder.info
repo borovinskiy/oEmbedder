@@ -1,0 +1,7 @@
+package = oEmbed
+name = oembedder
+description = Replaces oEmbed-enabled URLs with embedded node content
+core = 7.x
+files[] = oembedder.module
+
+

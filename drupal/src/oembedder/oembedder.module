@@ -1,0 +1,167 @@
+<?php
+
+/**
+ * Implements hook_help().
+ */
+function oembedder_help($path, $arg) {
+  global $base_url;
+  switch ($path) {
+    case 'admin/help#oembedder':
+      return '<p>' . t('Add endpoint oEmbed protocol for node export as ') . $base_url . '/oembedder. </p>';
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function oembedder_menu() {
+  $menu = array();
+
+  $menu['oembedder'] = array(
+    'type' => MENU_CALLBACK,
+    'page callback' => '_oembedder_handle_request',
+    'access arguments' => array('access content'),
+  );
+
+  return $menu;
+}
+
+/**
+ * Callback handler for oembed requests.
+ *
+ * @param string $format
+ *  Optional. The response format to use.
+ *  Defaults to $_GET['format'] or 'json', in that order.
+ */
+function _oembedder_handle_request() {
+  
+  global $base_url;
+  
+  $format = empty($_GET['format']) ? 'json' : $_GET['format'];
+
+  $formats = array(
+    'json' => array(
+      'mime' => 'text/javascript',
+      'callback' => '_oembedderprovider_formats_json',
+    ),
+    'jsonp' => array(
+      'mime' => 'text/javascript',
+      'callback' => '_oembedderprovider_formats_jsonp',
+    ),
+  //  'xml' => array(
+  //    'mime' => 'text/xml',
+  //    'callback' => '_oembedprovider_formats_xml',
+  //  ),
+  );
+  
+  if (!isset($formats[$format])) {
+    header('HTTP/1.0 501 Not implemented. Unsupported response format "' . check_plain($format) . '"');
+    die;
+  }
+  $f = $formats[$format];
+  header('Content-type: ' . $f['mime']);
+  header('Access-Control-Allow-Origin: *');
+
+  // Check that we got a url
+  if (empty($_GET['url'])) {
+    header('HTTP/1.0 406 Not acceptable. The url parameter is required.');
+    print t('The url parameter is required');      
+    die;
+  }
+
+  $url = $_GET['url'];
+
+  $matches = array();
+  
+  //$host = oembedder_get_host($url);
+  
+  if (strpos($url,$base_url) != 0) {
+    header('HTTP/1.0 406 Not acceptable. The url parameter is not supported.');
+    print t('The url parameter is not supported: request other server.');      
+    die;
+  }
+  
+  if (!preg_match('/\/(\d+)/',$url,$matches)) {    
+    header('HTTP/1.0 406 Not acceptable. The url parameter is not supported.');
+    print t('The url parameter is not supported: can not correct parse node id');      
+    die;
+  }
+  
+  $nid = $matches[1];   // may be it nid. may be not.
+  
+  $node = node_load($nid);
+  
+  if (!$node) {
+    header('HTTP/1.0 404 Not Found.');
+    print t('Node not found. Url is correct?');      
+    die;
+  }
+  
+  $module = array();		// для результатов хелпера
+  $module['node'] = $node;
+  $module['oembed'] = array();
+  $module = module_invoke_all('oembedder',$module,$width=0);           // вызываем хук всех модулей hook_embedder который помещает вывод в $module[]['html']. 
+  //В $module['node'] находится объект ноды
+  // В $module['oembed']['width'] и $module['oembed']['height'] ширина и высота ноды
+  // $module['oembed']['author_name'] строка с автором (optional)
+  // $module['oembed']['author_url'] (optional)
+  
+
+  if (isset($module['oembed']['html'])) {
+    $forward = array('maxwidth', 'maxheight');
+    $attributes = array();
+    foreach ($forward as $key) {
+      if (isset($_GET[$key])) {
+        $attributes[$key] = $_GET[$key];
+      }
+    }
+
+    $outObject = array(
+      'type' => 'rich',
+      'version' => '1.0',
+      'provider_name' => check_plain(variable_get('site_name', '')),
+      'width' => isset($module['oembed']['width']) ? $module['oembed']['width'] : 0,
+      'height' => isset($module['oembed']['height']) ? $module['oembed']['height'] : 0,
+      'html' => $module['oembed']['html'],            
+    );
+    $outObject['title'] = isset($module['oembed']['title']) ? $module['oembed']['title'] : check_plain($node->title);    
+    if (isset($module['author_name'])) $module['author_name'] = $outObject['author_name'] ;
+        
+    if ($format == "json") {
+      print json_encode($outObject);     
+    } else if ($format == "jsonp") {      
+      $callback = !empty($_GET['callback']) ? $_GET['callback'] : 'jsonp';
+      print sprintf('%s(%s)', $callback, json_encode($outObject));    
+    }
+    die;
+  }
+  else {
+    header('HTTP/1.0 404 Not found.');
+    print "Module not found";
+    die;
+  }
+  
+}
+
+/**
+ * A utility function to get the base domain from a url.
+ *
+ * @param string $uri
+ *  The uri to get the domain form
+ * @return string
+ *  The domain or NULL
+ */
+function oembedder_get_host($uri) {
+  $matches = array();
+  if (preg_match('/^https?\:\/\/([^\/]+)/', $uri, $matches)) {
+    $matches = explode('.', $matches[1]);
+    $match_count = count($matches);
+    if ($match_count > 1) {
+      return $matches[$match_count - 2] . '.' . $matches[$match_count - 1];
+    }
+    else {
+      return $matches[0];
+    }
+  }
+  return NULL;
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="content" version="1.0" client="site" method="upgrade">
+	<name>Content - Embed resources from Drupal site with oEmbedder module</name>
+	<author>Arsen I. Borovinskiy</author>
+	<creationDate>22/11/2014</creationDate>
+	<copyright>Copyright © 2014 Arsen I. Borovinskiy. All rights reserved.</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>borovinskiy@gmail.com</authorEmail>
+	<authorUrl>http://arsen-borovinskiy.blogspot.com</authorUrl>
+	<version>1.0.0</version>
+	<description>OEMBEDDER_DESC</description>
+	<files>
+		<filename plugin="oembedder">oembedder.php</filename>	
+		<filename>gpl.txt</filename>
+		<filename>changelog.txt</filename>
+	</files>
+	<media folder="media" destination="plg_oembedder">                
+        <folder>js</folder>
+		<filename>index.html</filename>
+    </media>
+	<languages>
+   		<language tag="en-GB">language/en-GB.plg_content_oembedder.ini</language>
+		<language tag="ru-RU">language/ru-RU.plg_content_oembedder.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+					<field name="spacer1" type="spacer" hr="true" />
+			<field name="&lt;b&gt;General Settings:&lt;/b&gt;" type="spacer" />
+				<field name="state" type="list" default="1" label="Plugin State" description="Choose to either activate or deactivate the plugin.(using this way to disable the plugin instead of unpublishing will prevent the brackets [[ ]] from showing up.)">
+					<option value="1">Activate</option>
+					<option value="0">Deactivate</option>
+				</field>
+				<field name="defaultWidth" type="hidden" default="" label="Default Width" description="Choose a width of embed resources as integer number (example: 300) or leave empty for auto." filter="int"></field>
+				<field name="spacer2" type="spacer" hr="true" />
+				<field name="&lt;b&gt;Custom oEmbedder Settings:&lt;/b&gt;" type="spacer" />
+				<field name="custom_site" type="textarea" default="" label="Custom oEmbedder base URL servers" description="Put a URL to use your custom ELiS site (example: http://demo.elibsystem.ru). Use Line-break for multiple servers" cols="40" rows="5"></field>
+				<field name="spacer3" type="spacer" hr="true" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>
+
