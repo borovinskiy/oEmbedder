@@ -1,5 +1,5 @@
-joEmbedder
-==========
+oEmbedder
+=========
 
 Joomla! oEmbed plugin for resources from Drupal sites with ombedder module by simple {{ url }}
 
