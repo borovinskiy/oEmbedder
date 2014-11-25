@@ -34,7 +34,7 @@ var oEmbedder = function(param){
   },false);
   var wrapperStyle = getComputedStyle(embedWrapper.parentNode,null);
   var frameWidth = wrapperStyle.width;
-  var requestUrl = endPoint + "?maxwidth=" + frameWidth + "&format=jsonp&callback=oEmbedder." + callback + "&url=" + url;
+  var requestUrl = endPoint + "?maxwidth=" + frameWidth + "&format=jsonp&callback=oEmbedder." + callback + "&url=" + encodeURIComponent(url);
 
   var s = document.createElement("script");
   s.type = "text/javascript";
