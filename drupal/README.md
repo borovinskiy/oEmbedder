@@ -26,10 +26,16 @@ You must implement hook_oembedder like this:
 ```php
 <?php
 /**
+ * $module = array("url","node","oembed")
+ * $module["url"] - standart object url with absolute url and relative $url->absolute, $url->relative. Can parsed modules.
+ * $module["node"] - loaded $node object (optional) if $module[url]->relative == "node/\d+"
+ * $module["oembed"] - returned array like oembed specification.
+ * $module["oembed"]["html"] - html code with iframe code. This output for user.
  * hook_oembedder implementation
  */
 function hook_oembedder($module=array(),$width=0) {
   global $base_url;
+  if (!isset($module['node'])) return $module;
   $node = $module['node'];		// It full loaded $node object 
   if ($node->type != "myCustomType") return $module;    // work only for owner document types
   $width = 640;		//default 
