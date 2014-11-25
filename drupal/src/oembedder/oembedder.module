@@ -70,35 +70,40 @@ function _oembedder_handle_request() {
   }
 
   $url = $_GET['url'];
+  
+  $url = drupal_get_normal_path($url);		// url may be alias. this resolved alias into internal path
+
+  $relative_url = str_replace("$base_url/",'',$url);
 
   $matches = array();
+
+  $module = array();
+  
+  $module['url'] = new stdClass();
+
+  $module['url']->absolute = $url;			// full url
+  $module['url']->relative = $relative_url;                // relative
+
   
   //$host = oembedder_get_host($url);
   
   if (strpos($url,$base_url) != 0) {
-    header('HTTP/1.0 406 Not acceptable. The url parameter is not supported.');
+    header('HTTP/1.0 404 Not Found.');
     print t('The url parameter is not supported: request other server.');      
     die;
   }
   
-  if (!preg_match('/\/(\d+)/',$url,$matches)) {    
-    header('HTTP/1.0 406 Not acceptable. The url parameter is not supported.');
-    print t('The url parameter is not supported: can not correct parse node id');      
-    die;
+  if (preg_match('/node\/(\d+)/',$url,$matches)) {    
+  
+    $nid = $matches[1];   // may be it nid. may be not.
+  
+    $node = node_load($nid);
+  
+    if ($node) {
+      $module['node'] = $node;
+    }
   }
-  
-  $nid = $matches[1];   // may be it nid. may be not.
-  
-  $node = node_load($nid);
-  
-  if (!$node) {
-    header('HTTP/1.0 404 Not Found.');
-    print t('Node not found. Url is correct?');      
-    die;
-  }
-  
-  $module = array();		// для результатов хелпера
-  $module['node'] = $node;
+
   $module['oembed'] = array();
   $module = module_invoke_all('oembedder',$module,$width=0);           // вызываем хук всех модулей hook_embedder который помещает вывод в $module[]['html']. 
   //В $module['node'] находится объект ноды
