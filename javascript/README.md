@@ -3,6 +3,8 @@ oEmbedder.js
 
 OEmbedder javascript file for embed resources from Drupal sites with ombedder module by simple code
 
+https://github.com/borovinskiy/oEmbedder/blob/master/javascript/src/oembedder.js
+
 ```
  {{ oembedder:url }}
 ```
