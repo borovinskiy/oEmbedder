@@ -11,7 +11,22 @@ https://github.com/borovinskiy/oEmbedder/blob/master/javascript/src/oembedder.js
 
 ## Install
 
-Just insert javascript into your site 
+Insert javascript into you site. 
+
+```
+<script src="oEmbedder.js" type="text/javascript"></script>
+```
+
+## Usage
+
+In footer call oEmbedder.findAndReplace(domElement) for find all {{ oembedder:URL }} into domElement and replace on oEmbed html object from http://example.com/oembedder?format=jsonp&url=URL ...
+```
+<script>oEmbedder.findAndReplace(document.getElementsByTagName("body")[0]);</script>
+```
+
+## Security warning!
+
+Do not use oEmbedder.findAndReplace on public multiuser sites. It execute is not filtered oEmbed url on white list sites!!!
 
 ## Usage
 
