@@ -128,7 +128,7 @@ class plgContentOembedder extends JPlugin
 
 			$output =  '<div class="oembedder-wrapper" id="' . $uniqueId  . '" style="max-width: ' . $this->embedWidth. 'px;">loading...';
 			$output .= '</div>';
-			$output .= '<script async>oEmbedder({wrapperId: "' . $uniqueId . '", endPoint: "' . $endPoint . '", url: "' . $url . '", callback: "oEmbedderCallback' . $uniqueId . '"} );</script>';
+			$output .= '<script async>oEmbedder.replace({wrapperId: "' . $uniqueId . '", endPoint: "' . $endPoint . '", url: "' . $url . '", callback: "oEmbedderCallback' . $uniqueId . '"} );</script>';
 			return $output;
         }
 }
