@@ -1,7 +1,11 @@
 oEmbedder
 =========
 
-Modules for embed Drupal content into Joomla! and Wordpress with code like {{ oembedder : http://example.com/node/123 }}
+Modules for embed Drupal content into Joomla! and Wordpress with code like
+
+```
+{{ oembedder : http://example.com/node/123 }}
+```
 
 ### Example
 
