@@ -129,7 +129,16 @@ function _oembedder_handle_request() {
       'height' => isset($module['oembed']['height']) ? $module['oembed']['height'] : 0,
       'html' => $module['oembed']['html'],            
     );
-    $outObject['title'] = isset($module['oembed']['title']) ? $module['oembed']['title'] : check_plain($node->title);    
+    
+    if (isset($module['oembed']['title'])) {
+      $outObject['title'] = $module['oembed']['title'];
+    }
+    else if (isset($node) && isset($node->title)) {
+      $outObject['title'] = check_plain($node->title);    
+    } else {
+      $outObject['title'] = ""; 
+    }
+
     if (isset($module['author_name'])) $module['author_name'] = $outObject['author_name'] ;
         
     if ($format == "json") {

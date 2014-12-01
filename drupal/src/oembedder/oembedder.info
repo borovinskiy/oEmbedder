@@ -3,5 +3,5 @@ name = oembedder
 description = Replaces oEmbed-enabled URLs with embedded node content
 core = 7.x
 files[] = oembedder.module
-version = 0.1
+version = 0.2
 
