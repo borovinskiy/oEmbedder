@@ -15,6 +15,8 @@ Insert javascript into you site.
 
 ```
 <script src="oEmbedder.js" type="text/javascript"></script>
+<!-- while list oEmbedder drupal $base_url -->
+<script type="text/javascript">oEmbedder.providers = ["http://example.com/drupal7","http://example.org"]</script>
 ```
 
 ## Usage
