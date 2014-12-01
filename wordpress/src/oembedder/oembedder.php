@@ -100,7 +100,7 @@ class Oembedder {
 		}
 		unset($sites);
 
-		$regex = "#\{\{\s*(.*?)\s*\}\}#s";
+		$regex = "#\{\{\s*oembedder\s*\:\s*(.*?)\s*\}\}#s";
 		preg_match_all( $regex, $text, $matches );
 		for($x=0; $x<count($matches[0]); $x++)          // loop for all {{ * }}		
 			{
@@ -150,14 +150,8 @@ class Oembedder {
 
 	function getEmbedCodeByUrl($url) {
                 $url = $this->removeSpaces($url);
-                if ($res = preg_match('/\/(\d*)$/',$url,$matches))
-                        {
-                        $nid = $matches[1];             // node id
-                        if (!$nid) return false;
-                        $output = $this->getOembedHtml($url);
-                        return $output;
-                        }
-                return false;
+                $output = $this->getOembedHtml($url);
+                return $output;
         }
 
 	/**
