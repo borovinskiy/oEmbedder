@@ -1,7 +1,7 @@
 oEmbedder
 =========
 
-Wordress oEmbed plugin for resources from Drupal sites with ombedder module by simple {{ url }}
+Wordress oEmbed plugin for resources from Drupal sites with ombedder module by simple {{ oembedder : url }}
 
 ## Wordpress support
 
@@ -18,5 +18,5 @@ Goto plugin settings. Add same Drupal target sites url.
 ## Usage
 
 ```
-{{ http://example.com/node/1 }}
+{{ oembedder : http://example.com/node/1 }}
 ```
