@@ -13,6 +13,7 @@
  * load oembed html code and embed to div with id param.wrapperId 
  * param.endPoint - url of oembed endPoint (example: http://example.com/oembedder)
  * param.url = url of oembed (example: http://example.com/node/23434)
+ * @version 0.1
  */
 var oEmbedder = {
   
