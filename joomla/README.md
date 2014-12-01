@@ -1,7 +1,7 @@
 oEmbedder
 =========
 
-Joomla! oEmbed plugin for resources from Drupal sites with ombedder module by simple {{ url }}
+Joomla! oEmbed plugin for resources from Drupal sites with ombedder module by simple {{ oembedder : url }}
 
 ## Joomla! supported
 
@@ -16,5 +16,5 @@ Go to Plugin settings. Enable plugin. Add same Drupal target sites url.
 ## Usage
 
 ```
-{{ http://example.com/node/1 }}
+{{ oembedder : http://example.com/node/1 }}
 ```
