@@ -15,7 +15,9 @@ Enable plugin.
 
 Goto plugin settings. 
 
-Add same Drupal target sites url.
+Add same Drupal target sites url:
+
+![oEmbedder wordpress settings](http://www.elibsystem.ru/sites/default/files/user/ars/docs/oembedder/wordpress/wordpress-oembedder-settings.png "oEmbedder wordpress settings")
 
 ## Usage
 
