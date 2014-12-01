@@ -13,7 +13,9 @@ Copy plugin folder from src/oembedder onto Wordpress ./wp-content/plugins.
 
 Enable plugin. 
 
-Goto plugin settings. Add same Drupal target sites url.
+Goto plugin settings. 
+
+Add same Drupal target sites url.
 
 ## Usage
 
