@@ -7,7 +7,7 @@
 * Version:      1.0.0
 * Date:         22/11/2014
 * License:      GNU/GPL http://www.gnu.org/copyleft/gpl.html
-* Copyright:Copyright © 2014 Arsen I. Borovinskiy. All rights reserved.
+* Copyright:Copyright Â© 2014 Arsen I. Borovinskiy. All rights reserved.
 **/
 //Note: Plugin is based on Simple Wiki Linker Plugin by Omar Muhammad.
 
@@ -53,7 +53,7 @@ class plgContentOembedder extends JPlugin
 
 			$output = false;
 
-			$regex = "#\{\{\s*(.*?)\s*\}\}#s";
+			$regex = "#\{\{\s*oembedder\s*\:\s*(.*?)\s*\}\}#s";
 			preg_match_all( $regex, $row->text, $matches );
 			for($x=0; $x<count($matches[0]); $x++)          // loop for all {{ * }}
 				{
@@ -109,7 +109,7 @@ class plgContentOembedder extends JPlugin
                         {
                         $nid = $matches[1];             // node id
                         if (!$nid) return false;
-                        $output = '<iframe src="http://k.psu.ru/library/ebooks/embed/' . $nid . '" marginheight=0 marginwidth=0 frameborder=no width="630" height="1024" allowfullscreen=1 mozallowfullscreen=1 webkitallowfullscreen=1></iframe>';
+                        //$output = '<iframe src="http://k.psu.ru/library/ebooks/embed/' . $nid . '" marginheight=0 marginwidth=0 frameborder=no width="630" height="1024" allowfullscreen=1 mozallowfullscreen=1 webkitallowfullscreen=1></iframe>';
                         $output = $this->getOembedHtml($url);
                         return $output;
                         }
