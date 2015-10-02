@@ -31,12 +31,14 @@ var oEmbedder = {
       document.getElementById(wrapperId).innerHTML = oembed.html; //embedWrapper уже отцеплен от DOM, нам надо заново его найти
     }
     window.addEventListener("message",function(event){
-      var data = JSON.parse(event.data);
-      var iframes = document.getElementsByTagName("iframe");		// get all iframes
-      for (var i=0; i<iframes.length;i++) {
-        if (iframes[i].src == data.src) 					// find source event iframe by src attribute
-          iframes[i].style.height = data.height + "px";
-      }
+      try {
+        var data = JSON.parse(event.data);
+        var iframes = document.getElementsByTagName("iframe");		// get all iframes
+        for (var i=0; i<iframes.length;i++) {
+          if (iframes[i].src == data.src) 					// find source event iframe by src attribute
+            iframes[i].style.height = data.height + "px";
+        }
+      } catch (error) {}  
     },false);
     
     var wrapperStyle = getComputedStyle(embedWrapper.parentNode,null);
